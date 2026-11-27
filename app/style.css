@@ -1,0 +1,329 @@
+/* Dompet Keluarga — anggaran rumah tangga, November 2026.
+   Warna: hijau daun #2e7d32, teal #00897b, latar #f5f7f5,
+   teks #212121, merah pengeluaran #c62828, hijau pemasukan/sisa.
+   CSS murni, tanpa font eksternal, tanpa gambar luar, tanpa network. */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #f5f7f5;
+  color: #212121;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a { color: #00897b; }
+
+/* ---------- Header & navigasi ---------- */
+header {
+  background: #2e7d32;
+  color: #fff;
+  padding: 16px 20px;
+}
+header h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  line-height: 1.2;
+}
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+header nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 6px 2px;
+}
+header nav a:hover,
+header nav a:focus-visible { text-decoration: underline; }
+header nav a.active { border-bottom: 3px solid #fff; }
+
+/* ---------- Konten utama & footer ---------- */
+main,
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px;
+}
+section { margin-bottom: 28px; }
+h2 { font-size: 22px; margin: 0 0 12px; }
+h3 { font-size: 18px; margin: 0 0 8px; }
+
+footer {
+  text-align: center;
+  font-size: 13px;
+  color: #616161;
+  padding: 16px 20px 24px;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* ---------- Kartu ringkasan ---------- */
+.summary-cards,
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  padding: 18px 20px;
+}
+.card h3,
+.card .card-label {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #616161;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.card .amount,
+.card .big-number {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.card.income .amount,
+.card .amount.income { color: #2e7d32; }
+.card.expense .amount,
+.card .amount.expense { color: #c62828; }
+.card.balance .amount,
+.card .amount.balance { color: #2e7d32; }
+.card .note { font-size: 13px; color: #616161; margin-top: 4px; }
+
+/* ---------- Tabel transaksi ---------- */
+.table-wrap { overflow-x: auto; }
+table,
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+thead th,
+th {
+  background: #e8e8e8;
+  font-size: 14px;
+  font-weight: 700;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #f1f8f1; }
+td.amount,
+td.number,
+th.amount,
+th.number { text-align: right; font-variant-numeric: tabular-nums; }
+td.amount.income,
+.amount.income { color: #2e7d32; font-weight: 600; }
+td.amount.expense,
+.amount.expense { color: #c62828; font-weight: 600; }
+td .btn { margin-right: 6px; }
+
+/* ---------- Tombol ---------- */
+button,
+.btn {
+  display: inline-block;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #e0e0e0;
+  color: #212121;
+}
+button:hover,
+.btn:hover { filter: brightness(0.95); }
+button:focus-visible,
+.btn:focus-visible { outline: 3px solid #00897b; outline-offset: 2px; }
+.btn-primary,
+button[type="submit"] {
+  background: #2e7d32;
+  color: #fff;
+}
+.btn-cancel,
+.btn-secondary { background: #e0e0e0; color: #212121; }
+.btn-edit,
+.btn-small {
+  padding: 5px 10px;
+  font-size: 13px;
+  border-radius: 6px;
+}
+.btn-delete {
+  padding: 5px 10px;
+  font-size: 13px;
+  border-radius: 6px;
+  background: #c62828;
+  color: #fff;
+}
+
+/* ---------- Form tambah transaksi ---------- */
+form,
+.transaction-form {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+}
+.form-row { margin-bottom: 14px; }
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+input,
+select,
+textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 16px;
+  padding: 10px 12px;
+  border: 1px solid #bdbdbd;
+  border-radius: 8px;
+  background: #fff;
+  color: #212121;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #00897b;
+  box-shadow: 0 0 0 2px rgba(0, 137, 123, 0.25);
+}
+.form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+/* ---------- Bilah anggaran ---------- */
+.budget-item {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+}
+.budget-item h3 { margin-bottom: 8px; }
+.budget-bar,
+.budget-track {
+  height: 18px;
+  background: #e0e0e0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+.budget-fill,
+.budget-bar-fill {
+  height: 100%;
+  background: #00897b;
+  border-radius: 999px;
+  width: 0;
+}
+.budget-bar.over .budget-fill,
+.budget-fill.over,
+.budget-bar-fill.over { background: #c62828; }
+.budget-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: #424242;
+  margin-top: 8px;
+}
+.budget-meta .remaining { font-weight: 700; color: #2e7d32; }
+.budget-bar.over ~ .budget-meta .remaining,
+.budget-item.over .remaining { color: #c62828; }
+
+/* ---------- Chart ---------- */
+.chart-container,
+.chart-wrap {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  padding: 18px;
+}
+.chart-container canvas,
+.chart-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 320px;
+}
+.legend {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  font-size: 14px;
+}
+.legend li { display: flex; align-items: center; gap: 7px; }
+.legend .swatch,
+.legend .color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: #00897b;
+  flex-shrink: 0;
+}
+
+/* ---------- Kalkulator ---------- */
+.calculator {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+}
+.calculator-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.calculator-result,
+.calc-result {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #e0e0e0;
+  font-size: 18px;
+}
+.calculator-result .result-value,
+.calc-result .result-value {
+  display: block;
+  font-size: 34px;
+  font-weight: 700;
+  color: #2e7d32;
+}
+.calculator-result.negative .result-value,
+.calc-result.negative .result-value { color: #c62828; }
+
+/* ---------- Responsif ---------- */
+@media (max-width: 720px) {
+  header h1 { font-size: 22px; }
+  header nav { gap: 2px 14px; }
+  main,
+  .container { padding: 14px; }
+  .summary-cards,
+  .cards { grid-template-columns: 1fr; }
+  .calculator-inputs { grid-template-columns: 1fr; }
+  .card .amount,
+  .card .big-number { font-size: 26px; }
+  .chart-container canvas,
+  .chart-wrap canvas { height: 260px; }
+  .table-wrap { margin: 0 -14px; padding: 0 14px; }
+}
